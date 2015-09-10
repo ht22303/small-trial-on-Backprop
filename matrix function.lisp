@@ -76,3 +76,9 @@
 				     :initial-element 0d0)))
 	     (dotimes (i (array-dimension m 1) result)
 	       (incf (aref result i i) (aref m 0 i)))))
+
+(defun Mrandom (Matrix ran-num)
+	   (let ((result Matrix))
+	     (dotimes (i (array-dimension result 0) result)
+	       (dotimes (j (array-dimension result 1))
+		 (setf (aref result i j) (small-random ran-num))))))
