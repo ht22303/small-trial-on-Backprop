@@ -66,6 +66,7 @@
 		 (incf (aref result i j) (aref matrix j i))))))
 
 (defun enlarge (matrix learning-rate)
+           ;;times a number to a matrix
 	   (let ((result (make-array (list
 				      (array-dimension matrix 0)
 				      (array-dimension matrix 1))
@@ -75,6 +76,7 @@
 		 (setf (aref result i j) (* (aref matrix i j) learning-rate))))))
 
 (defun diagonalise (M)
+           ;;diagonalise a vector
 	   (let ((result (make-array (list (array-dimension m 1)
 					   (array-dimension m 1))
 				     :initial-element 0d0)))
@@ -82,6 +84,7 @@
 	       (incf (aref result i i) (aref m 0 i)))))
 
 (defun Mrandom (Matrix ran-num)
+           ;;mapping small random number to a matrix
 	   (let ((result Matrix))
 	     (dotimes (i (array-dimension result 0) result)
 	       (dotimes (j (array-dimension result 1))
