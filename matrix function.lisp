@@ -1,3 +1,7 @@
+;;;; matrix operation functions
+
+;;;note that the idex 0 and 1 of the matrix is inverted (attempting to correct)
+
 (defun matrix* (&rest matrices)
   (assert (cdr matrices) nil
           "You will achieve nothing by multiplying a single matrix.")
