@@ -1,0 +1,26 @@
+(defun remove-ill-symbols (char)
+	   (cond ((equal char '#\,) " ")
+		 ((equal char '#\#) " ")
+		 ((equal char '#\`) " ")
+                 ((equal char '#\/) " ")
+		 (t char)))
+
+(defun csv-parser (file)
+	   (let ((stoper nil) (string nil))
+	    (with-open-file (in file :direction :input)
+	      (with-open-file (out (make-pathname :name "csv.result")
+				   :direction :output
+				   :if-exists :supersede)
+	       (format out "(")
+	       (loop (cond ((eql stoper t) (return))
+			   (t
+			    (cond ((null (eql string nil))
+				   (format out "~A~%" (list (eval `(concatenate 'string ,@string))))
+			           (setq string nil))
+				  (t nil)) 
+			    (do ((c (read-char in nil :eof) (read-char in nil :eof)))
+				((or (eql c '#\^M) (eql c '#\Newline)))
+			      (cond ((eql c :eof) (return (setq stoper t)))
+				    (t (setq string (append string 
+							    (list (format nil "~A" (remove-ill-symbols c)))))))))))
+	       (format out ")")))))
