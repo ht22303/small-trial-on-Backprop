@@ -23,3 +23,17 @@
 			   (+ result 
 			      (expt (- (aref target 0 i) (aref out 0 i)) 2)))))
 		   (t ':error))))
+
+(defun standardise (list alpha w)
+	   (let ((ma (apply #'max list))
+		 (mi (apply #'min list)))
+	     (mapcar #'(lambda (x)
+			 (+ alpha (/ 
+				   (* (- w alpha)
+				      (- x mi))
+				   (- ma mi))))
+		     list)))
+
+(defun mean-distance (lst)
+	   (let ((x-bar (mean lst)))
+	     (- (car lst) x-bar)))
